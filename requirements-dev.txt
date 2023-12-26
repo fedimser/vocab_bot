@@ -1,0 +1,2 @@
+pycodestyle>=2.11
+pytest>=7.2

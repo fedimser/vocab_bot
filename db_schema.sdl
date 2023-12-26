@@ -1,0 +1,17 @@
+-- Schema for the VocabBot database.
+CREATE TABLE UserVocabs(
+  user_id INTEGER,
+  vocab_id STRING,
+  summary TEXT,
+  active BOOLEAN,
+  state TEXT,
+  PRIMARY KEY (user_id, vocab_id)
+);
+
+Create TABLE Users(
+  user_id INTEGER,
+  name STRING,
+  first_seen_sec INTEGER,
+  active_vocab STRING,
+  PRIMARY KEY (user_id)
+);

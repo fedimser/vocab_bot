@@ -1,0 +1,7 @@
+.idea/*
+.mypy_cache
+.pytest_cache
+vocab_bot/__pycache__/*
+tmp
+*.sqlite
+data
