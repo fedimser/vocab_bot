@@ -17,19 +17,20 @@ class UserScreen(ABC):
     def get_buttons(self) -> list[tuple[str, str]]:
         pass
 
+    def max_buttons_per_row(self) -> int:
+        return 1
+
     @abstractmethod
     def get_message_text(self) -> str:
         pass
 
     def get_markup(self) -> InlineKeyboardMarkup:
-        one_per_row = True
+        buttons = self.get_buttons()
+        mb = self.max_buttons_per_row()
+        rows = [buttons[i:i + mb] for i in range(0, len(buttons), mb)]
         builder = InlineKeyboardBuilder()
-        for text, cb in self.get_buttons():
-            if one_per_row:
-                button = InlineKeyboardButton(text=text, callback_data=cb)
-                builder.row(button)
-            else:
-                builder.button(text=text, callback_data=cb)
+        for row in rows:
+            builder.row(*[InlineKeyboardButton(text=b[0], callback_data=b[1]) for b in row])
         return builder.as_markup()
 
 
@@ -119,6 +120,9 @@ class VocabSelect(UserScreen):
     def get_buttons(self) -> list[tuple[str, str]]:
         # <index> (1-indexed) - "select_vocab:<vocab_id>"
         return [(vocab_id, "select_vocab:%s" % vocab_id) for vocab_id in self.vocab_ids]
+
+    def max_buttons_per_row(self) -> int:
+        return 4
 
     def get_message_text(self) -> str:
         text = "📚 All available vocabularies:\n"

@@ -269,6 +269,7 @@ class VocabBotEngine:
             assert len(vocab.items) >= self.variants_num
             self.vocabs[vocab_id] = vocab
         assert len(self.vocabs) > 0, "No vocabs found in %s" % vocabs_dir
+        print("Loaded %d vocabs." % len(self.vocabs))
 
         # Sessions.
         self.active_vocabs = dict()  # type: dict[int, UserVocab]
