@@ -41,7 +41,8 @@ class Vocab:
                 if row[0] == "__private_user_ids__":
                     private_user_ids = set(int(uid) for uid in row[1].split(","))
                     continue
-                assert not row[0].startswith("__")
+                elif row[0].startswith("__"):
+                    continue
                 native = row[1].strip()
                 if "," in native:
                     synonyms = [w.strip() for w in native.split(",")]
@@ -317,6 +318,7 @@ class VocabBotEngine:
         user = self.storage.get_user(user_id)
         if user is None:
             logging.warning("User not found: %d", user_id)
+            logging.warning("User not found: %d", user_id)
             return None
 
         # Switching vocab.
@@ -376,7 +378,7 @@ class VocabBotEngine:
         summaries_from_storage = self.storage.get_vocab_summaries_for_user(user.id)
         vocab_ids = []
         summaries = []
-        if user.active_vocab is not None:
+        if user.active_vocab is not None and user.active_vocab in all_vocab_ids:
             vocab_ids.append(user.active_vocab)
             summaries.append(summaries_from_storage[user.active_vocab] + " ✔️")
             all_vocab_ids.remove(user.active_vocab)
