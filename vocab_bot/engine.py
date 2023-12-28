@@ -15,6 +15,7 @@ from .utils import get_cur_time, secs_to_interval
 # Box 0 is new, box NUM_BOXES-1 is learned (won't be asked anymore).
 NUM_BOXES = 5
 WAIT_TIMES_HR = [0, 1 * 24, 7 * 24, 16 * 24, 1000000]
+MAX_VOCAB_SIZE = 3000
 
 
 @dataclass(frozen=True)
@@ -48,7 +49,10 @@ class Vocab:
                     synonyms = [w.strip() for w in native.split(",")]
                     native = ",".join(synonyms[:3])
                 extra_info = None if len(row) == 2 else row[2]
+                assert len(row[0]) > 0 and len(native) > 0, "Bad row: %s" % row
                 items.append(VocabItem(foreign=row[0], native=native, extra_info=extra_info))
+        assert len(items) <= MAX_VOCAB_SIZE, "Vocab %s is too large (%d > %d)." % (
+        id, len(items), MAX_VOCAB_SIZE)
         return Vocab(id=id, items=items, private_user_ids=private_user_ids)
 
     def get_items(self, idxs: tp.Sequence[int]) -> list[VocabItem]:
