@@ -4,4 +4,4 @@
 vocab_bot/__pycache__/*
 prepare_vocabs
 *.sqlite
-data
+data/vocab_bot_vocabs

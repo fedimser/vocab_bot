@@ -20,7 +20,7 @@ a list of words.
 
 1. Install Python 3.9+ and git.
 2. Clone this repository.
-3. Add vocabs to `data/vocabs`
+3. Add vocabs to `data/vocab_bot_vocabs`
 4. Install requirements: `pip install -r requirements.txt requirements-dev.txt`
 5. Run tests: `pytest ./vocab_bot`
 6. Run: `VOCAB_BOT_TOKEN=<token> python3 ./run_bot.py`
