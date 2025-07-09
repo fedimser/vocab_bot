@@ -351,6 +351,7 @@ class VocabBotEngine:
                 self.active_vocabs[user_id] = user_vocab
                 user_vocab.start_session()
                 if user_vocab.session is not None:
+                    logging.info(f"Started session: user_id={user_vocab.user_id}, vocab_id={user_vocab.vocab.id}.")
                     return user_vocab.session.next_question()
                 else:
                     if user_vocab.fully_learned():

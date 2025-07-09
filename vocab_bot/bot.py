@@ -12,7 +12,7 @@ from aiogram.types.callback_query import CallbackQuery
 
 from vocab_bot.engine import VocabBotEngine
 
-logging.getLogger().setLevel(logging.WARNING)
+logging.getLogger().setLevel(getenv('LOG_LEVEL', default='WARNING').upper())
 
 engine = VocabBotEngine(
     db_path=Path('./data/vocab_bot_db.sqlite'),
