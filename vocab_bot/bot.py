@@ -4,6 +4,7 @@ from os import getenv
 from pathlib import Path
 
 from aiogram import Bot, Dispatcher, types
+from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import Command
 from aiogram.types import Message
@@ -50,7 +51,7 @@ async def default_message_handler(message: types.Message) -> None:
 async def main() -> None:
     bot_token = getenv("VOCAB_BOT_TOKEN")
     assert bot_token is not None, "No env variable VOCAB_BOT_TOKEN"
-    bot = Bot(bot_token, parse_mode=ParseMode.HTML)
+    bot = Bot(bot_token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     print("Vocab Bot started.")
     await dp.start_polling(bot)
 
