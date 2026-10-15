@@ -3,5 +3,5 @@
 .pytest_cache
 vocab_bot/__pycache__/*
 prepare_vocabs
-*.sqlite
-data/vocab_bot_vocabs
+data/*
+run.sh
